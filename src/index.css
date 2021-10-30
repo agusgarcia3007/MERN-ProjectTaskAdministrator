@@ -325,6 +325,7 @@
     margin-top: 2rem;
     display: block;
     opacity: .7;
+    text-decoration: underline var(--gris3);
   }
   .alerta {
     position: fixed;
