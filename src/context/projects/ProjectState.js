@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import ProjectContext from './ProjectContext';
 import ReducerProject from './ReducerProject';
-import {PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT} from '../../types';
+import {PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT} from '../../types';
 import { nanoid } from 'nanoid';
 
 
@@ -68,6 +68,14 @@ const ProjectState = props => {
         })
     }
 
+    //delete project
+    const deleteProject = projectID => {
+        dispatch({
+            type: DELETE_PROJECT,
+            payload: projectID
+        })
+    }
+
     return(
         <ProjectContext.Provider
             value={{
@@ -80,7 +88,8 @@ const ProjectState = props => {
                 getProjects,
                 addProject,
                 validateForm,
-                currentProject
+                currentProject,
+                deleteProject
             }}
         >
             {props.children}

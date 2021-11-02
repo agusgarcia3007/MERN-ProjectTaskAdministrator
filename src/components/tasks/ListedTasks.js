@@ -1,17 +1,36 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Task from './Task';
+import ProjectContext from '../../context/projects/ProjectContext';
+import Illustration from '../../assets/illustration.png';
 
 const ListedTasks = () => {
 
 
     const tasks = [
-        {name: 'Choose platform', completed: false},
-        {name: 'test app', completed: true }
+
     ]
+
+    const projectsContext=useContext(ProjectContext);
+    const { project, deleteProject } = projectsContext;
+
+    if(!project) {
+        return(
+            <>
+                <h2>Choose your project</h2>
+                <img src={Illustration} alt='illustration' className='illustration'/>
+            </>
+
+        )
+    }
+
+    const [currentProject] = project;
+
+    
+
 
     return ( 
         <>
-            <h2>Project: </h2>
+            <h2>Project: {currentProject.name} </h2>
 
             <ul className="listado-tareas">
                 {tasks.length === 0 
@@ -28,6 +47,7 @@ const ListedTasks = () => {
             <button
                 type='button'
                 className='btn btn-eliminar'
+                onClick={() => deleteProject(currentProject.id)}
             >Delete Project &times;</button>
         </>
      );

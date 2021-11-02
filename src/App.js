@@ -4,10 +4,12 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Projects from './components/projects/Projects';
 import ProjectState from './context/projects/ProjectState';
+import TaskState from './context/tasks/TaskState';
 
 const App = () => {
     return ( 
         <ProjectState>
+            <TaskState>
             <Router>
                 <Switch>
                     <Route  exact path='/' component={Login}/>
@@ -15,6 +17,7 @@ const App = () => {
                     <Route  exact path='/projects' component={Projects}/>
                 </Switch>
             </Router>
+            </TaskState>
         </ProjectState>
      );
 }

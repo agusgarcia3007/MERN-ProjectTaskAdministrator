@@ -344,6 +344,8 @@
     text-align: center;
     width: 100%;
   }
+.illustration{display: block; margin:auto; height: 300px;}
+
   @media (min-width:768px) {
     .alerta {
         width: auto;
@@ -351,6 +353,7 @@
         right: 10px;
         left: auto;
     }
+    
   }
   
   .alerta-ok {

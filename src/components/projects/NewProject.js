@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import ProjectContext from '../../context/projects/ProjectContext';
-import { FiFolderPlus, FiX } from 'react-icons/fi'
+import { FiX } from 'react-icons/fi'
 
 const NewProject = () => {
 

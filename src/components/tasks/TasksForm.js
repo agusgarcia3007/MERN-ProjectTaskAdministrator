@@ -1,7 +1,16 @@
-import React  from 'react';
+import React,{ useContext } from 'react';
+import ProjectContext from '../../context/projects/ProjectContext';
 
 
 const TasksForm = () => {
+
+
+    const projectsContext = useContext(ProjectContext);
+    const { project } = projectsContext;
+
+    if(!project) return null;
+
+    const [currentProject] = project;
 
     const handleBlur =()=>{
         alert('hola');
