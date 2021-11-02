@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react';
+import ProjectContext from '../../context/projects/ProjectContext';
+import { FiFolderPlus } from 'react-icons/fi'
 
 const NewProject = () => {
+
+
+    const projectsContext = useContext(ProjectContext);
+    const { form, showForm} = projectsContext;
 
     //project state
     const [project, setProject] = useState({
@@ -18,20 +24,28 @@ const NewProject = () => {
         e.preventDefault();
 
     }
+    
 
     return ( 
         <>
             <button
                 type='button'
                 className='btn btn-block btn-primario'
+                onClick={ showForm}
                 >
-                    Add 
+                    Add <FiFolderPlus/>
             </button>
 
-            <form className='formulario-nuevo-proyecto' onSubmit={handleSubmit}>
-                <input type='text' className='input-text' placeholder='Project Name' name='name' onBlur={handleBlur}/>
-                <input type="submit" className='btn btn-primario btn-block' value='Add Project' />
-            </form>
+            {
+                form ? 
+                (
+                    <form className='formulario-nuevo-proyecto' onSubmit={handleSubmit}>
+                        <input type='text' className='input-text' placeholder='Project Name' name='name' onBlur={handleBlur}/>
+                        <input type="submit" className='btn btn-primario btn-block' value='Add Project' />
+                    </form>
+                ) : null
+
+            }
         </>
      );
 }
