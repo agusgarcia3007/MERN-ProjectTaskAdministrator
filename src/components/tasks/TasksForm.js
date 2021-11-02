@@ -2,6 +2,11 @@ import React  from 'react';
 
 
 const TasksForm = () => {
+
+    const handleBlur =()=>{
+        alert('hola');
+    }
+
     return ( 
         <div className="formulario">
             <form>
@@ -11,6 +16,7 @@ const TasksForm = () => {
                         className='input-text'
                         placeholder='Your Task'
                         name='name'
+                        onBlur={handleBlur}
                         />
                 </div>
 
@@ -19,6 +25,7 @@ const TasksForm = () => {
                         type='sunmit'
                         className='btn btn-primario btn-submit btn-block'
                         value='Add new task'
+                        
                         />
                 </div>
             </form>
