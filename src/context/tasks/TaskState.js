@@ -12,7 +12,12 @@ const TaskState = props => {
     const [state, dispatch ] = useReducer(TaskReducer, initialState);
 
     return(
-        <TaskContext.Provider>
+        <TaskContext.Provider
+            value={{
+                tasks: state.tasks,
+                
+            }}
+        >
             {props.children}
         </TaskContext.Provider>
     )
