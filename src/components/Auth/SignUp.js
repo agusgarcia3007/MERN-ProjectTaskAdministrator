@@ -12,7 +12,7 @@ const SignUp = () => {
     });
     const [error, setError] = useState(false);
 
-    const { name, email, password, repeat } = user;
+    const {  email, password } = user;
 
 
     const handleBlur = e => {
@@ -37,7 +37,7 @@ const SignUp = () => {
             <div className="contenedor-form sombra-dark">
                 <h1>Create an account</h1>
 
-
+                {error? <p>error</p> : null}
                 <form
                     onSubmit={handleSubmit}
                 >

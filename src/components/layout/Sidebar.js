@@ -1,4 +1,4 @@
-import Reac, { useContext} from 'react';
+import React, { useContext} from 'react';
 import NewProject from '../projects/NewProject';
 import List from '../projects/List';
 import ProjectContext from '../../context/projects/ProjectContext';

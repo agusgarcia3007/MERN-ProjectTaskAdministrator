@@ -1,17 +1,18 @@
 import React, {useContext} from 'react';
 import Task from './Task';
 import ProjectContext from '../../context/projects/ProjectContext';
+import TaskContext from '../../context/tasks/TaskContext';
 import Illustration from '../../assets/illustration.png';
 
 const ListedTasks = () => {
 
-
-    const tasks = [
-
-    ]
-
     const projectsContext=useContext(ProjectContext);
     const { project, deleteProject } = projectsContext;
+
+
+    const TasksContext = useContext(TaskContext);
+    const { projectTask } = TasksContext;
+
 
     if(!project) {
         return(
@@ -25,17 +26,15 @@ const ListedTasks = () => {
 
     const [currentProject] = project;
 
-    
-
 
     return ( 
         <>
             <h2>Project: {currentProject.name} </h2>
 
             <ul className="listado-tareas">
-                {tasks.length === 0 
+                {projectTask.length === 0 
                     ? (<li className="tarea"><p>No tasks yet</p></li>) 
-                    : tasks.map( task => (
+                    : projectTask.map( task => (
                         <Task 
                             task={task}
                             key={task.name}

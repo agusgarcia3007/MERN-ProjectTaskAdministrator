@@ -35,7 +35,7 @@ const Login = () => {
             <div className="contenedor-form sombra-dark">
                 <h1>Log In</h1>
 
-
+                {error ? <p>error</p> : null}
                 <form
                     onSubmit={handleSubmit}
                 >
