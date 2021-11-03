@@ -10,7 +10,8 @@ const fnReducer = (state, action) => {
         case CLOSE_FORM :
             return{
                 ...state,
-                form : false
+                form : false,
+                error : false
             }
         case GET_PROJECTS :
             return{
