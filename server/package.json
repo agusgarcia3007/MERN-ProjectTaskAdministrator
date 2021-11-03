@@ -1,0 +1,24 @@
+{
+  "name": "taskie",
+  "version": "1.0.0",
+  "description": "taskie MERN task administrator",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node .",
+    "dev": "nodemon ."
+  },
+  "author": "Agustin Garcia dos Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agusgarcia3007/MERN/issues"
+  },
+  "homepage": "https://github.com/agusgarcia3007/MERN#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
+}
