@@ -1,4 +1,4 @@
-import React,{ useContext, useState } from 'react';
+import React,{ useContext, useState, useEffect } from 'react';
 import ProjectContext from '../../context/projects/ProjectContext';
 import TaskContext from '../../context/tasks/TaskContext';
 
@@ -9,7 +9,16 @@ const TasksForm = () => {
     const { project } = projectsContext;
 
     const tasksContext = useContext(TaskContext);
-    const { addTask, getTasks } = tasksContext;
+    const { chosenTask ,addTask, getTasks, editTask } = tasksContext;
+
+    //effect to finde selected tasks
+    useEffect(() => {
+        if(chosenTask !== null){
+            setTask(chosenTask);
+        }else{
+            setTask({name:""});
+        }
+    }, [chosenTask])
 
     const [task, setTask] = useState({name:''});
     const { name } = task;
@@ -20,7 +29,7 @@ const TasksForm = () => {
 
     const [currentProject] = project;
 
-    const handleBlur = e =>{
+    const handleChange = e =>{
         setTask({
             ...task,
             [e.target.name] : e.target.value
@@ -35,10 +44,20 @@ const TasksForm = () => {
             setError(true);
             return;
         }
+
+        if(chosenTask === null){
+
+            task.projectID = currentProject.id;
+            task.completed = false
+            addTask(task);
+
+        }else{
+            editTask(task);
+
+        }
+
         setError(false);
-        task.projectID = currentProject.id;
-        task.completed = false
-        addTask(task);
+        
         getTasks(currentProject.id);
         setTask({name:""});
     }
@@ -53,18 +72,18 @@ const TasksForm = () => {
                     <input 
                         type='text'
                         className='input-text'
-                        placeholder='Your Task'
+                        placeholder={chosenTask ? 'Choose the new Title' : 'Your Task'}
                         name='name'
-                        
-                        onBlur={handleBlur}
+                        value={name}
+                        onChange={handleChange}
                         />
                 </div>
 
                 <div className="contenedor-input">
                     <input  
                         type='submit'
-                        className='btn btn-primario btn-submit btn-block'
-                        value='Add new task'
+                        className={chosenTask ? 'btn btn-secondary btn-submit btn-block' : 'btn btn-primario btn-submit btn-block'}
+                        value={chosenTask ? 'Edit' : 'Add'}
                         
                         />
                 </div>

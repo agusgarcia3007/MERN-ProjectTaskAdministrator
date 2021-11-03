@@ -14,7 +14,7 @@ const Task = ({task}) => {
 
 
     const tasksContext = useContext(TaskContext);
-    const { delTask, getTasks } = tasksContext;
+    const { delTask, getTasks, changeState, currentTask } = tasksContext;
 
 
     const handleDel = id => {
@@ -22,6 +22,19 @@ const Task = ({task}) => {
         getTasks(currentProject.id);
     }
 
+    const handleChange = task => {
+        if(task.completed){
+            task.completed=false;
+        }else{
+            task.completed=true;
+        }
+        changeState(task);
+    }
+
+    //edit task
+    const chooseTask = task => {
+        currentTask(task);
+    }
 
     return ( 
         <li className="tarea sombra">
@@ -29,8 +42,8 @@ const Task = ({task}) => {
 
             <div className="estado">
                 {task.completed 
-                    ? ( <button type='button' className='completo'  >Completed</button> )
-                    : ( <button type='button' className='incompleto'  >Not Yet</button> )
+                    ? ( <button type='button' className='completo' onClick={() => handleChange(task)} >Completed</button> )
+                    : ( <button type='button' className='incompleto' onClick={() => handleChange(task)} >Not Yet</button> )
                 }
             </div>
 
@@ -38,6 +51,7 @@ const Task = ({task}) => {
                 <button
                     type='button'
                     className='btn btn-secundario'
+                    onClick={() => chooseTask(task)}
                 >
                     <FiEdit/>
                 </button>

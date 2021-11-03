@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 const ProjectState = props => {
 
     const projects = [
-                {id:1, name: 'alfa=pampa'},
+                {id:1, name: 'alfa Pampa'},
                 {id:2, name: 'weig'}
     ];
 

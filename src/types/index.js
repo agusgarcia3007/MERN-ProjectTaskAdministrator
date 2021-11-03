@@ -8,3 +8,6 @@ export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const GET_TASKS = 'GET_TASKS';
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK ='DELETE_TASK';
+export const TASK_STATE = 'TASK_STATE';
+export const CURRENT_TASK = 'CURRENT_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';

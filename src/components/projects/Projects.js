@@ -1,25 +1,15 @@
 import React from 'react';
 import Sidebar from '../layout/Sidebar';
-import Header from '../layout/Header';
-import TasksForm from '../tasks/TasksForm';
-import ListedTasks from '../tasks/ListedTasks';
+import MainSection from './MainSection';
 
 const Projects = () => {
     return ( 
         <div className="contenedor-app">
             
+            <MainSection />
             <Sidebar />
 
-            <div className="seccion-principal">
-                <Header />
-                <main>
-                    <TasksForm />
-
-                    <div className="contenedor-tareas">
-                        <ListedTasks />
-                    </div>
-                </main>
-            </div>
+           
         </div>
      );
 }

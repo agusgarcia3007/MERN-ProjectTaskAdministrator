@@ -4,7 +4,6 @@ import ProjectContext from '../../context/projects/ProjectContext';
 import TaskContext from '../../context/tasks/TaskContext';
 import Illustration from '../../assets/illustration.png';
 import Question from '../../assets/question.png';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 const ListedTasks = () => {
 
@@ -31,25 +30,20 @@ const ListedTasks = () => {
 
     return ( 
         <>
-            <h2>Project: {currentProject.name} </h2>
+            <h2>PROJECT: {currentProject.name} </h2>
 
             <ul className="listado-tareas">
                 {projectTask.length === 0 
                     ? (<img src={Question} alt='question mark' className='illustration'/>) 
-                    : <TransitionGroup>
-                       { projectTask.map( task => (
-                        <CSSTransition
-                        key={task.id}
-                        timeout={300}
-                        classNames='tarea'
-                        >
+                    : projectTask.map( task => (
                             <Task 
+                            classNames='tarea'
+                            key={task.id}
                             task={task}
-                            
-                        />
-                        </CSSTransition>
-                    )) }
-                    </TransitionGroup>
+                             />
+                       
+                    )) 
+                    
                 }
             </ul>
 

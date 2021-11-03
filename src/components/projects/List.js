@@ -13,6 +13,7 @@ const List = () => {
 
     useEffect(()=>{
         getProjects();
+        //eslint-disable-next-line
     },[]);
 
     if(projects.length === 0) {
