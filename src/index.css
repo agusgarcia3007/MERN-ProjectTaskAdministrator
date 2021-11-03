@@ -346,6 +346,7 @@
     width: 100%;
   }
 .illustration{display: block; margin:auto; height: 300px;}
+.illustrationli{display: block; margin:auto; height: 300px; background-color: transparent;}
 
   @media (min-width:768px) {
     .alerta {
