@@ -27,6 +27,12 @@ router.put('/:id',
         check('name', 'project name required').not().isEmpty()
     ],
     projectController.updateProject
+);
+
+//delete project
+router.delete('/:id',
+    auth,
+    projectController.deleteProject
 )
 
 
