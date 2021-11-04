@@ -1,4 +1,15 @@
-const express = require('express');
+const express = require('express')
+const app = express()
+const port = process.env.port || 4000
+const connectDB = require('./config/db');
 
+connectDB();
 
-const app = express();
+//enable express.json
+app.use(express.json({extended : true }))
+
+app.use('/api/users', require('./routes/users'));
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
