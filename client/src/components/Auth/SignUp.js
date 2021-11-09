@@ -1,7 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alert/alertContext';
+
 
 const SignUp = () => {
+
+    //get items from context 
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
     
     //SignUp state
     const [user, setUser] = useState({
@@ -10,9 +16,8 @@ const SignUp = () => {
         password:'',
         repeat:''
     });
-    const [error, setError] = useState(false);
 
-    const {  email, password } = user;
+    const {  email, password, name, repeat } = user;
 
 
     const handleBlur = e => {
@@ -21,23 +26,29 @@ const SignUp = () => {
             [e.target.name] : e.target.value
         })
     };
+    
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        if(email.trim() === '' || password.trim() === ''){
-            setError(true);
-            return;
+        if(email.trim() === '' || password.trim() === '' || name.trim() || repeat.trim()){
+            showAlert('All fields are required', 'alerta-error');           
         }
-        setError(false);
+        if(password.length < 6){
+            showAlert('Use 6 characters or more for your password', 'alerta-error');  
+        }
+        if(password !== repeat){
+            showAlert('Those passwords didn’t match. Please try again.', 'alerta-error');
+            
+        }
     }
 
     return ( 
         <div className="form-usuario">
+            { alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
                 <h1>Create an account</h1>
 
-                {error? <p>error</p> : null}
                 <form
                     onSubmit={handleSubmit}
                 >
