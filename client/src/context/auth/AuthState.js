@@ -1,8 +1,9 @@
-import axios from 'axios';
 import React, { useReducer } from 'react'
 import { OK_SIGNUP, ERROR_SIGNUP, OK_LOGIN, ERROR_LOGIN, GET_USERNAME, SIGN_OUT } from '../../types'
 import authContext from './authContext';
 import authReducer from './authReducer';
+import tokenAuth from '../../config/tokenAuth'
+import axiosClient from '../../config/axios';
 
 
 const AuthState = props => {
@@ -21,8 +22,8 @@ const AuthState = props => {
 
     const signUp = async data => {
         try {
-            const url = 'http://localhost:4000/api/users'
-            const resp = await axios.post(url, data);
+            
+            const resp = await axiosClient.post('/api/users', data);
             console.log(resp.data);
             dispatch({
                 type: OK_SIGNUP,
@@ -49,18 +50,47 @@ const AuthState = props => {
     const userAuthenticated = async () => {
         const token = localStorage.getItem('token');
         if(token){
-
+            tokenAuth(token);
         }
         try {
-            const resp = await axios.get('http://localhost:4000/api/auth');
+            const resp = await axiosClient.get('/api/auth');
+
+            //dispatch
+            dispatch({
+                type: GET_USERNAME,
+                payload: resp.data.user
+            })
             
         } catch (error){
             dispatch({
                 type: ERROR_LOGIN
             })
         }
-    }
+    };
 
+    //login
+    const login = async data => {
+        try {
+
+            const resp = await axiosClient.post('/api/auth', data);
+            console.log(resp)
+
+            
+        } catch (error) {
+            
+                const alert = {
+                msg: error.response.data.msg,
+                category: 'alerta-error'
+            }
+
+            dispatch({
+                type: ERROR_LOGIN,
+                payload: alert
+            })
+        }
+
+        }
+    
 
 
     return(

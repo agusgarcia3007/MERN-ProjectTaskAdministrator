@@ -9,6 +9,11 @@ const RedAuth = (state, action) => {
                 authenticated: true,
                 msg: null
             }
+        case GET_USERNAME:
+            return{
+                ...state,
+                user: action.payload
+            }
         case ERROR_LOGIN:
         case ERROR_SIGNUP:
             localStorage.removeItem('token');
