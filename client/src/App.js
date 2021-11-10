@@ -6,7 +6,7 @@ import Projects from './components/projects/Projects';
 import ProjectState from './context/projects/ProjectState';
 import TaskState from './context/tasks/TaskState';
 import AlertState from './context/alert/AlertState';
-import AuthState from './context/auth/authState';
+import AuthState from './context/auth/AuthState';
 
 const App = () => {
     return ( 

@@ -1,13 +1,28 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
+import authContext from '../../context/auth/authContext';
 
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     //get items from context 
     const alertContext = useContext(AlertContext);
     const { alert, showAlert } = alertContext;
+
+    //auth context
+    const Authcontext = useContext(authContext);
+    const { msg, authenticated,  signUp } = Authcontext;
+
+    //in case user already exists or it have already been authenticated
+    useEffect(()=>{
+        if(authenticated){
+            props.history.push('/projects');
+        }
+        if(msg){
+            showAlert(msg.msg, msg.category);    
+        }
+    },[msg, authenticated, props.history])
     
     //SignUp state
     const [user, setUser] = useState({
@@ -32,15 +47,23 @@ const SignUp = () => {
         e.preventDefault();
 
         if(email.trim() === '' || password.trim() === '' || name.trim() || repeat.trim()){
-            showAlert('All fields are required', 'alerta-error');           
+            showAlert('All fields are required', 'alerta-error');    
+            
         }
         if(password.length < 6){
             showAlert('Use 6 characters or more for your password', 'alerta-error');  
+            
         }
         if(password !== repeat){
             showAlert('Those passwords didn’t match. Please try again.', 'alerta-error');
-            
+            return;
         }
+        signUp({
+            name,
+            email,
+            password,
+
+        })
     }
 
     return ( 
