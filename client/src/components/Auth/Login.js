@@ -1,14 +1,34 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alert/alertContext';
+import authContext from '../../context/auth/authContext';
+import LoginIllustration from '../../assets/Consulting-rafiki.png'
 
-const Login = () => {
-    
+
+const Login = (props) => {
+
+    //get items from context 
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
+
+    //auth context
+    const Authcontext = useContext(authContext);
+    const { msg, authenticated, login } = Authcontext;
+
+    useEffect(()=>{
+        if(authenticated){
+            props.history.push('/projects');
+        }
+        if(msg){
+            showAlert(msg.msg, msg.category);    
+        }
+    },[msg, authenticated, props.history])
+
     //login state
     const [user, setUser] = useState({
         email:'',
         password:''
     });
-    const [error, setError] = useState(false);
 
     const { email, password } = user;
 
@@ -24,22 +44,26 @@ const Login = () => {
         e.preventDefault();
 
         if(email.trim() === '' || password.trim() === ''){
-            setError(true);
+            showAlert('All fields are required', 'alerta-error');
             return;
-        }
-        setError(false);
+        };
+
+        login({email, password});
+
     }
 
     return ( 
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
-                <h1>Log In</h1>
+                <h1> Login <img src={LoginIllustration} alt="illustration" className='illustration' /></h1>
+                
 
-                {error ? <p>error</p> : null}
+                { alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
                 <form
                     onSubmit={handleSubmit}
                 >
                     <div className="campo-form">
+                        
                         <label htmlFor="email">
                             Email
                         </label>
@@ -60,7 +84,7 @@ const Login = () => {
                         name="password" 
                         id="password"  
                         placeholder='password' 
-                        onBlur={handleBlur}/>
+                        onChange={handleBlur}/>
                     </div>
 
                     <div className="campo-form">

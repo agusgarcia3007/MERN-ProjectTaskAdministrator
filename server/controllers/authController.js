@@ -17,13 +17,13 @@ exports.authUser = async (req, res) => {
         //check if user is registterd
         let user = await  User.findOne({ email });
         if( !user ){
-            return res.status(400).json({ msg : 'user does not exist'});
+            return res.status(400).json({ msg : 'User does not exist'});
         };
 
         //check password
         const passwordTrue = await bcryptjs.compare(password, user.password);
         if(!passwordTrue){
-            return res.status(400).json({ msg : 'incorrect password'});
+            return res.status(400).json({ msg : 'Incorrect password'});
         };
 
         //if everything is ok. JWT

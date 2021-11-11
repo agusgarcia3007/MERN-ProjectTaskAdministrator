@@ -12,7 +12,8 @@ const AuthState = props => {
         token: localStorage.getItem('token'),
         authenticated: null,
         user: null,
-        msg: null
+        msg: null,
+        loading: true
     }
 
     const [ state, dispatch ] = useReducer(authReducer, initialState);
@@ -73,8 +74,14 @@ const AuthState = props => {
         try {
 
             const resp = await axiosClient.post('/api/auth', data);
-            console.log(resp)
+            console.log(resp);
 
+            dispatch({
+                type: OK_LOGIN,
+                payload: resp.data
+            });
+
+            userAuthenticated();
             
         } catch (error) {
             
@@ -89,7 +96,14 @@ const AuthState = props => {
             })
         }
 
-        }
+        };
+
+    //sign out
+    const signOut = () => {
+        dispatch({
+            type: SIGN_OUT
+        })
+    }
     
 
 
@@ -100,7 +114,11 @@ const AuthState = props => {
                 authenticated: state.authenticated,
                 user: state.user,
                 msg: state.msg,
-                signUp
+                loading: state.loading,
+                signUp,
+                login,
+                userAuthenticated,
+                signOut
             }}
         >
             {props.children}

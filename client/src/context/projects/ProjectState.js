@@ -2,16 +2,10 @@ import React, { useReducer } from 'react';
 import ProjectContext from './ProjectContext';
 import ReducerProject from './ReducerProject';
 import {PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT} from '../../types';
-import { nanoid } from 'nanoid';
-
+import axiosClient from '../../config/axios';
 
 
 const ProjectState = props => {
-
-    const projects = [
-                {id:1, name: 'alfa Pampa'},
-                {id:2, name: 'weig'}
-    ];
 
     const initialState = {
         projects : [],
@@ -36,22 +30,32 @@ const ProjectState = props => {
     }
 
     //get projects
-    const getProjects = () => {
-        dispatch({
-            type: GET_PROJECTS,
-            payload : projects
-        })
+    const getProjects = async () => {
+        try {
+            const res = await axiosClient.get('/api/projects');
+
+            dispatch({
+                type: GET_PROJECTS,
+                payload : res.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     //add new project
-    const addProject = project => {
-        project.id = nanoid();
+    const addProject = async project => {
+        try {
+            const resp = await axiosClient.post('/api/projects', project);
 
-        dispatch({
-            type : ADD_PROJECT,
-            payload : project
-        })
+            dispatch({
+                type : ADD_PROJECT,
+                payload : resp.data
+            })
 
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const validateForm = () => {

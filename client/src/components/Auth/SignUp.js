@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import authContext from '../../context/auth/authContext';
+import SignIllustration from '../../assets/sign-up.png'
 
 
 const SignUp = (props) => {
@@ -70,7 +71,8 @@ const SignUp = (props) => {
         <div className="form-usuario">
             { alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
-                <h1>Create an account</h1>
+            <h1> Create an account <img src={SignIllustration} alt="illustration" className='illustration' /></h1>
+                
 
                 <form
                     onSubmit={handleSubmit}
