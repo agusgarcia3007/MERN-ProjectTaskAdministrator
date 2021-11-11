@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import ProjectContext from './ProjectContext';
 import ReducerProject from './ReducerProject';
-import {PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT} from '../../types';
+import {PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT, PROJECT_ERROR } from '../../types';
 import axiosClient from '../../config/axios';
 
 
@@ -11,7 +11,8 @@ const ProjectState = props => {
         projects : [],
         form : false,
         error: false,
-        project:null
+        project:null,
+        msg: null
     }
 
 
@@ -39,7 +40,11 @@ const ProjectState = props => {
                 payload : res.data
             })
         } catch (error) {
-            console.log(error)
+            const alert = { msg: 'An error occurred while deleting your project. please try again', category: 'alerta-error'}
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            })
         }
     };
 
@@ -54,7 +59,11 @@ const ProjectState = props => {
             })
 
         } catch (error) {
-            console.log(error)
+            const alert = { msg: 'An error occurred while deleting your project. please try again', category: 'alerta-error'}
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            })
         }
     };
 
@@ -73,11 +82,20 @@ const ProjectState = props => {
     }
 
     //delete project
-    const deleteProject = projectID => {
-        dispatch({
-            type: DELETE_PROJECT,
-            payload: projectID
-        })
+    const deleteProject = async projectID => {
+        try {
+            await axiosClient.delete(`/api/projects/${projectID}`)
+            dispatch({
+                type: DELETE_PROJECT,
+                payload: projectID
+            })
+        } catch (error) {
+            const alert = { msg: 'An error occurred while deleting your project. please try again', category: 'alerta-error'}
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            })
+        }
     }
 
     return(
@@ -87,6 +105,7 @@ const ProjectState = props => {
                 form: state.form,
                 error : state.error,
                 project: state.project,
+                msg: state.msg,
                 showForm,
                 closeForm,
                 getProjects,

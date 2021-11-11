@@ -56,7 +56,7 @@ const NewProject = () => {
                 form ? 
                 (
                         <form className='formulario-nuevo-proyecto' onSubmit={handleSubmit}>
-                            <input type='text' className='input-text' placeholder='Project Name' name='name' onBlur={handleBlur}/>
+                            <input type='text' className='input-text' placeholder='Project Name' name='name' onChange={handleBlur}/>
                             <input type="submit" className='btn btn-primario btn-block' value='Add Project' />
                         </form>
                         

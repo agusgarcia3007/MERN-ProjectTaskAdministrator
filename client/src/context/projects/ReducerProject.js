@@ -1,4 +1,4 @@
-import { PROJECT_FORM,GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT } from "../../types";
+import { PROJECT_FORM,GET_PROJECTS, ADD_PROJECT, CLOSE_FORM, VALIDATE_FORM, CURRENT_PROJECT, DELETE_PROJECT, PROJECT_ERROR } from "../../types";
 
 const fnReducer = (state, action) => {
     switch (action.type){
@@ -33,14 +33,19 @@ const fnReducer = (state, action) => {
         case CURRENT_PROJECT:
             return{
                 ...state,
-                project: state.projects.filter(project => project.id === action.payload)
+                project: state.projects.filter(project => project._id === action.payload)
             }
         case DELETE_PROJECT:
             return{
                 ...state,
-                projects: state.projects.filter(project => project.id !== action.payload),
+                projects: state.projects.filter(project => project._id !== action.payload),
                 project: null
 
+            }
+        case PROJECT_ERROR:
+            return{
+                ...state,
+                msg: action.payload
             }
         default:
              return state
