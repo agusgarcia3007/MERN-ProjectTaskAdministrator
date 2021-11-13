@@ -42,7 +42,7 @@ exports.getTasks = async (req, res) => {
 
     try {
             //get project
-        const { project } =req.body;
+        const { project } =req.query;
 
         const projectTrue = await Project.findById(project);
         if(!projectTrue){
@@ -86,12 +86,10 @@ exports.updateTask = async (req, res) => {
 
         //obj with new info
         let newTask = {};
-        if(name){
-            newTask.name = name;
-        }
-        if(completed){
-            newTask.completed = completed;
-        }
+
+        newTask.name = name;
+        newTask.completed = completed;
+        
 
         taskTrue = await Task.findOneAndUpdate({_id : req.params.id}, newTask, { new: true});
 
@@ -109,7 +107,7 @@ exports.updateTask = async (req, res) => {
 //delete task
 exports.deleteTask = async (req, res) => {
     try {
-        const { project } =req.body;
+        const { project } =req.query;
 
         let taskTrue = await Task.findById(req.params.id);
 

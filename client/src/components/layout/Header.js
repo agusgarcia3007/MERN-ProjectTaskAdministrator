@@ -11,6 +11,7 @@ const Header = () => {
     
         useEffect(() => {
             userAuthenticated();
+            //eslint-disable-next-line
         }, [])
 
     return ( 

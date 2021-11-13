@@ -14,11 +14,11 @@ const Task = ({task}) => {
 
 
     const tasksContext = useContext(TaskContext);
-    const { delTask, getTasks, changeState, currentTask } = tasksContext;
+    const { delTask, getTasks, editTask, currentTask } = tasksContext;
 
 
     const handleDel = id => {
-        delTask(id);
+        delTask(id, currentProject._id);
         getTasks(currentProject.id);
     }
 
@@ -28,7 +28,7 @@ const Task = ({task}) => {
         }else{
             task.completed=true;
         }
-        changeState(task);
+        editTask(task);
     }
 
     //edit task
@@ -59,7 +59,7 @@ const Task = ({task}) => {
                 <button
                     type='button'
                     className='btn btn-primario'
-                    onClick={() => handleDel(task.id)}
+                    onClick={() => handleDel(task._id)}
                 >
                     <FiTrash2 />
                 </button>

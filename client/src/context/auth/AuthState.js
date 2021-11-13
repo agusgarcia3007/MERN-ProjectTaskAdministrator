@@ -25,7 +25,6 @@ const AuthState = props => {
         try {
             
             const resp = await axiosClient.post('/api/users', data);
-            console.log(resp.data);
             dispatch({
                 type: OK_SIGNUP,
                 payload: resp.data
@@ -34,7 +33,6 @@ const AuthState = props => {
             //get user
             userAuthenticated();
         } catch (error) {
-            console.log(error.response);
             const alert = {
                 msg: error.response.data.msg,
                 category: 'alerta-error'
@@ -74,7 +72,6 @@ const AuthState = props => {
         try {
 
             const resp = await axiosClient.post('/api/auth', data);
-            console.log(resp);
 
             dispatch({
                 type: OK_LOGIN,
@@ -102,7 +99,7 @@ const AuthState = props => {
     const signOut = () => {
         dispatch({
             type: SIGN_OUT
-        })
+        });
     }
     
 

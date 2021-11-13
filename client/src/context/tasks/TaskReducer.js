@@ -1,4 +1,4 @@
-import { GET_TASKS, ADD_TASK, DELETE_TASK, TASK_STATE, CURRENT_TASK, UPDATE_TASK } from "../../types";
+import { GET_TASKS, ADD_TASK, DELETE_TASK, CURRENT_TASK, UPDATE_TASK } from "../../types";
 
 
 const Func =  (state, action) => {
@@ -6,23 +6,22 @@ const Func =  (state, action) => {
         case ADD_TASK :
             return{
                 ...state,
-                tasks: [...state.tasks, action.payload]
+                projectTask: [action.payload, ...state.projectTask]
             }
         case GET_TASKS :
             return{
                 ...state,
-                projectTask: state.tasks.filter(task => task.projectID === action.payload)
+                projectTask: action.payload
             }
         case DELETE_TASK :
             return{
                 ...state,
-                tasks : state.tasks.filter(task => task.id !== action.payload)
+                projectTask : state.projectTask.filter(task => task._id !== action.payload)
             }
         case UPDATE_TASK :
-        case TASK_STATE :
             return{
                 ...state,
-                tasks: state.tasks.map( task => task.id === action.payload.id ? action.payload : task),
+                projectTask: state.projectTask.map( task => task._id === action.payload._id ? action.payload : task),
                 chosenTask : null
             }
         case CURRENT_TASK :

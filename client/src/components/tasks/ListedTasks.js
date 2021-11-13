@@ -4,6 +4,7 @@ import ProjectContext from '../../context/projects/ProjectContext';
 import TaskContext from '../../context/tasks/TaskContext';
 import Illustration from '../../assets/illustration.png';
 import Question from '../../assets/question.png';
+import { nanoid } from 'nanoid';
 
 const ListedTasks = () => {
 
@@ -13,6 +14,8 @@ const ListedTasks = () => {
 
     const TasksContext = useContext(TaskContext);
     const { projectTask } = TasksContext;
+
+    
 
 
     if(!project) {
@@ -38,7 +41,7 @@ const ListedTasks = () => {
                     : projectTask.map( task => (
                             <Task 
                             classNames='tarea'
-                            key={task.id}
+                            key={nanoid()}
                             task={task}
                              />
                        

@@ -47,8 +47,7 @@ const TasksForm = () => {
 
         if(chosenTask === null){
 
-            task.projectID = currentProject.id;
-            task.completed = false
+            task.project = currentProject._id;
             addTask(task);
 
         }else{
@@ -73,6 +72,7 @@ const TasksForm = () => {
                         type='text'
                         className='input-text'
                         placeholder={chosenTask ? 'Choose the new Title' : 'Your Task'}
+                        autoComplete="off"
                         name='name'
                         value={name}
                         onChange={handleChange}
