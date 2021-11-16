@@ -45,6 +45,7 @@ const ProjectState = props => {
                 type: PROJECT_ERROR,
                 payload: alert
             })
+            
         }
     };
 
