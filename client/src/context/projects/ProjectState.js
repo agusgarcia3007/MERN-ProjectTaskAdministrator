@@ -57,6 +57,7 @@ const ProjectState = props => {
             dispatch({
                 type : ADD_PROJECT,
                 payload : resp.data
+
             })
 
         } catch (error) {
@@ -83,7 +84,8 @@ const ProjectState = props => {
     }
 
     //delete project
-    const deleteProject = async projectID => {
+    const deleteProject = async projectID => { 
+        
         try {
             await axiosClient.delete(`/api/projects/${projectID}`)
             dispatch({
